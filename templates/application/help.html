@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load fractal from fractal_tag %}
+
+{% block head %}
+	<script type="text/javascript" src="/static/javascript/explorer.js"></script>
+
+	<script type="text/javascript">
+		log("Viewing story {{story.id}} version {{story.latest.id}}");
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+	<h1>What are Fractal Narratives?</h1>
+	<p>Fractal Narratives represent an inventive new way of creating stories with a potentially unlimited level of detail. In order to understand how this is achieved, one must first understand the principle of fractals themselves.  While <a href="http://en.wikipedia.org/wiki/Fractal">Wikipedia</a> has an in-depth page regarding fractals, their article focuses on some of the more complex fractal shapes, such as the <a href="http://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot set</a>.</p>
+	<img class="figure" src="/static/images/208188316_528c6d792c_m.jpg">A rendering of the Mandelbrot set by <a href="http://www.flickr.com/photos/farmerchris/">Chris Farmer</a>.
+
+	<p>Luckily, Fractal Narratives have a far less complicated structure and don't require a degree in Mathematics to create.  They operate under one simple principle: <strong>any two consecutive fragments of a story can be extended by adding a third optional fragment between them.</strong></p>
+
+	<p>On paper this may seem like a trivial distinction; obviously any story can be extended by adding more content. The difference in this case is that the word "optional" should be taken literally.  The story needs to make sense regardless of whether on not any given section is included. Fractal Narratives take this idea to its logical conclusion and state that an entire story can be composed of a hierarchy of optional fragments.  A simple example is give below:</p>
+	<div id="explorer" class="figure" style="padding: 10px 10px 0 10px">
+		{{ story.latest.xml_data|fractal }}
+	</div>
+
+	<p>Clicking on the annotations adds detail to the narrative by revealing hidden parts of the story and exposing any additional places where the story can be further extended. Since individual sections of the narrative can be extended independently, the reader maintains complete control over the level of detail of all aspects of the story.</p>
+{% endblock %}

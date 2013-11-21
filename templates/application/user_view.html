@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Stories by {{profile_user.username}}</h2>
+<p>This user has published the following stories:</p>
+{% if story_list %}
+	<div id="story_list"> 
+	{% for story in story_list %}
+		<div class="story_box">
+			<img class="story_illustration" src="/static/illustrations/{{story.id}}.jpg" alt="No illustration">
+			<div class="story_info">
+				<div class="story_title_div">
+					<a class="story_title" href="/story/{{story.id}}">{% if story.latest.title %}{{story.latest.title}}{% else %}Untitled story{% endif %}</a>
+				</div>
+				<p>{{story.latest.description}}</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+	{% endfor %}
+	</div>
+{% else %}
+	<p>This user has not published any stories yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load fractal from fractal_tag %}
+
+{% block head %}
+	<script type="text/javascript" src="/static/javascript/editor.js"></script>
+	<script type="text/javascript" src="/static/javascript/jquery.textarea-expander.js"></script>
+	<script type="text/javascript" src="/static/javascript/jquery.form.js"></script>
+	<script type="text/javascript" src="/static/javascript/upload.js"></script>
+
+	<script type="text/javascript">
+		log("Editing story {{story.id}} version {{story.latest.id}}");
+	</script>
+
+
+{% endblock %}
+
+{% block content %}
+	<div id="edit_story_info">
+		<h1>Edit Story Information</h1>
+		<div id="edit_story_info_right">
+			<p>Story illustration:<br>
+			<img class="story_illustration" src="/static/illustrations/{{story.id}}.jpg" alt="No illustration">
+			</p>
+			<form id="upload" action="/upload/" method="post" enctype="multipart/form-data">			
+				{% csrf_token %}
+				<input name="id" value="{{story.id}}" type="hidden"/>
+				<input name="myFile" type="file" autocomplete="off">
+				<input type="submit" value="Upload"/>
+				<div id="output"></div>
+			</form>
+		</div>
+
+		<div id="edit_story_info_left">
+			<p>
+				Title:<br>
+				<input type="text" id="title" size="40" value="{{story.latest.title}}" autocomplete="off"/>
+			</p>
+			<p>
+				Description:<br>
+				<textarea id="description" cols="50" rows="3" autocomplete="off">{{story.latest.description}}</textarea>
+			</p>
+			<p>
+				Make story visible to others? 
+				<input type="checkbox" id="published" {% if story.latest.published %} checked="true" {% endif %} autocomplete="off" />
+			</p>
+		</div>
+		<input type="hidden" id="story_id" value="{{story.id}}"/>
+	</div>
+	<div class="clear"></div>
+	<h1>Edit Narrative</h1>
+	<div id="editor">
+		{{ story.latest.xml_data|fractal }}
+	</div>
+	<input id="save_button" type="button" onclick="save()" value="Save"/>
+{% endblock %}

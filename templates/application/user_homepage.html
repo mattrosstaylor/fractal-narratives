@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block head %}
+	<script type="text/javascript" src="/static/javascript/delete.js"></script>
+{% endblock %}
+
+{% block content %}
+{% if story_list %}
+	<div id="story_list"> 
+	{% for story in story_list %}
+		<div class="story_box">
+			<img class="story_illustration" src="/static/illustrations/{{story.id}}.jpg" alt="No illustration">
+			<div class="story_info">
+				<div class="story_title_div">
+					{% if not story.latest.published %}Draft: {% endif %}
+					<a class="story_title" href="/story/{{story.id}}">{% if story.latest.title %}{{story.latest.title}}{% else %}Untitled story{% endif %}</a>
+<!--					by <a href="/user/{{story.owner.username}}/">{{story.owner.username}}</a> -->
+				</div>
+				<p>{{story.latest.description}}</p>
+				<a href="/story/{{story.id}}">view</a>
+				| <a href="/story/edit/{{story.id}}">edit</a>
+				| <a href="javascript:void(0)" onclick="deleteStory({{story.id}});">delete</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	{% endfor %}
+	</div>
+{% else %}
+	<p>You have not created any stories yet.</p>
+{% endif %}
+<hr>
+<a href="/story/new">Create New Story</a>
+| <a href="/account/password/change">Change Password</a>
+| <a href="/account/logout">Logout</a>
+
+{% endblock %}

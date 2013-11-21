@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load fractal from fractal_tag %}
+
+{% block head %}
+	<script type="text/javascript" src="/static/javascript/explorer.js"></script>
+
+	<script type="text/javascript">
+		log("Viewing story {{story.id}} version {{story.latest.id}}");
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="story_box">
+	<img class="story_illustration" src="/static/illustrations/{{story.id}}.jpg" alt="no illustration">
+	<div class="story_info">
+		<div class="story_title_div">
+			<span class="story_title" href="/story/{{story.id}}">{% if story.latest.title %}{{story.latest.title}}{% else %}Untitled story{% endif %}</span>
+			by <a href="/user/{{story.owner.username}}/">{{story.owner.username}}</a>
+		</div>
+
+		<p>{{story.latest.description}}</p>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div id="explorer">
+	{{ story.latest.xml_data|fractal }}
+</div>
+{% endblock %}

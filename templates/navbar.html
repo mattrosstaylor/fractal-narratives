@@ -1,0 +1,24 @@
+<div id="menu">
+	<div id="navbar">
+		<ul id="navlist">
+			<li><a href="/">home</a></li>
+
+			<li><a href="/story/index">stories</a></li>
+			{% if user.is_staff %}
+				<li><a href="/story/index/admin">all</a></li>
+			{% endif %}
+			{% if user.is_authenticated %}
+				<li><a href="/user/{{user.username}}">{{user.username}}</a></li>
+				<li><a href="/account/logout">logout</a></li>
+			{% else %}
+				<li><a href="/account/login">login</a></li>
+				<li><a href="/account/register">register</a></li>
+			{% endif %}
+			<li><a href="/help">help</a></li>
+			<li><a href="/about">about</a></li>
+
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>	
+

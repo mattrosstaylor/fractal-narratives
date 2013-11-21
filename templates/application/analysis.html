@@ -1,0 +1,46 @@
+{% load process from fractal_tag %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Strange Hypertexts - Fractal Narratives</title>
+		<script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/javascript/utility.js"></script>
+	</head>
+	
+
+	<body>
+		{% if story_list %}
+			<table>
+				<tr>
+					<th>story id</th>
+					<th>author id</th>
+					<th>author username</th>
+					<th>published?</th>
+					<th>title</th>
+					<th>description</th>
+					<th>nodes [depth,length]</th>
+					<th>raw xml</th>
+				</tr>
+			{% for story in story_list %}
+				<tr>
+				<td>{{ story.id }}</td>
+				<td>{{ story.owner.id }}</td>
+				<td>{{ story.owner.username }}</td>
+				<td>{{ story.latest.published }}</td>
+				<td>{{ story.latest.title }}</td>
+				<td>{{ story.latest.description }}</td>
+				<td>{{ story.latest.xml_data|process }}</td>
+				<td>{{ story.latest.xml_data }}</td>
+				</tr>
+			{% endfor %}
+			</table>
+		{% else %}
+			<p>No data.</p>
+		{% endif %}
+	</body>
+</html>		 
+
+
